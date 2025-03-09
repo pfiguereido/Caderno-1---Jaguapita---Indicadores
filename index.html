@@ -116,9 +116,9 @@
         
         .bar-container {
             background-color: #e5e7eb;
-            height: 25px;
+            height: 32px; /* Aumentei altura para mais espaço */
             border-radius: 4px;
-            margin: 0.5rem 0;
+            margin: 0.75rem 0; /* Aumentei margem entre barras */
             position: relative;
         }
         
@@ -127,7 +127,6 @@
             border-radius: 4px;
             display: flex;
             align-items: center;
-            justify-content: center;
             color: white;
             font-weight: bold;
             position: relative;
@@ -154,6 +153,7 @@
             left: 10px;
             color: #333;
             font-weight: bold;
+            z-index: 2; /* Garantir que o texto fique acima da barra */
         }
         
         .bar-value {
@@ -161,6 +161,7 @@
             right: 10px;
             color: #333;
             font-weight: bold;
+            z-index: 2; /* Garantir que o texto fique acima da barra */
         }
         
         .highlight-box {
@@ -237,6 +238,30 @@
             background-color: #1e3a8a;
         }
         
+        /* Garantir que os rótulos e valores sejam sempre visíveis */
+        .bar-backdrop {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: transparent;
+            z-index: 1;
+        }
+        
+        /* Adicionar um pouco de margens para garantir que o texto não esteja muito próximo das bordas */
+        .bar-label {
+            left: 10px;
+            padding: 2px 5px;
+            background-color: rgba(255, 255, 255, 0.7); /* Fundo semitransparente */
+            border-radius: 3px;
+        }
+        
+        .bar-value {
+            right: 10px;
+            padding: 2px 5px;
+            background-color: rgba(255, 255, 255, 0.7); /* Fundo semitransparente */
+            border-radius: 3px;
+        }
+        
         @media (max-width: 768px) {
             .grid-2 {
                 grid-template-columns: 1fr;
@@ -268,23 +293,31 @@
             <p>O município está <strong>efetivo</strong>, mas com espaço significativo para melhorias. Destacam-se positivamente as áreas de Educação, Saúde e Fiscal, todas com nota B (Muito efetiva).</p>
             
             <div class="bar-container">
+                <div class="bar-backdrop"></div>
                 <div class="bar-label">Nota Geral (C+)</div>
-                <div class="bar bar-medium" style="width: 50%;">2.5/5</div>
+                <div class="bar bar-medium" style="width: 50%;">&nbsp;</div>
+                <div class="bar-value">2.5/5</div>
             </div>
             
             <div class="bar-container">
+                <div class="bar-backdrop"></div>
                 <div class="bar-label">Educação (B)</div>
-                <div class="bar bar-good" style="width: 60%;">3/5</div>
+                <div class="bar bar-good" style="width: 60%;">&nbsp;</div>
+                <div class="bar-value">3/5</div>
             </div>
             
             <div class="bar-container">
+                <div class="bar-backdrop"></div>
                 <div class="bar-label">Saúde (B)</div>
-                <div class="bar bar-good" style="width: 60%;">3/5</div>
+                <div class="bar bar-good" style="width: 60%;">&nbsp;</div>
+                <div class="bar-value">3/5</div>
             </div>
             
             <div class="bar-container">
+                <div class="bar-backdrop"></div>
                 <div class="bar-label">Fiscal (B)</div>
-                <div class="bar bar-good" style="width: 60%;">3/5</div>
+                <div class="bar bar-good" style="width: 60%;">&nbsp;</div>
+                <div class="bar-value">3/5</div>
             </div>
         </div>
         
@@ -294,8 +327,8 @@
             <div class="highlight-box">
                 <h3>Nível</h3>
                 <div class="highlight-value">DIAMANTE</div>
-                <p>Nota: 100% - Ranking Estadual: 19º lugar</p>
-                <p>O município atingiu o mais alto nível de transparência, cumprindo 100% dos requisitos essenciais avaliados.</p>
+                <p>Nota: 99,71% - Ranking Estadual: 19º lugar</p>
+                <p>O município atingiu o mais alto nível de transparência, cumprindo 99,71% dos requisitos essenciais avaliados.</p>
             </div>
         </div>
         
@@ -303,38 +336,44 @@
             <h2 class="card-title">Programa de Gestão e Avaliação (PROGOV)</h2>
             
             <div class="bar-container">
+                <div class="bar-backdrop"></div>
                 <div class="bar-label">Educação</div>
-                <div class="bar bar-medium" style="width: 63%;">6,31</div>
+                <div class="bar bar-medium" style="width: 63%;">&nbsp;</div>
                 <div class="bar-value">6,31</div>
             </div>
             
             <div class="bar-container">
+                <div class="bar-backdrop"></div>
                 <div class="bar-label">Saúde</div>
-                <div class="bar bar-medium" style="width: 64%;">6,35</div>
+                <div class="bar bar-medium" style="width: 64%;">&nbsp;</div>
                 <div class="bar-value">6,35</div>
             </div>
             
             <div class="bar-container">
+                <div class="bar-backdrop"></div>
                 <div class="bar-label">Assistência Social</div>
-                <div class="bar bar-medium" style="width: 67%;">6,71</div>
+                <div class="bar bar-medium" style="width: 67%;">&nbsp;</div>
                 <div class="bar-value">6,71</div>
             </div>
             
             <div class="bar-container">
+                <div class="bar-backdrop"></div>
                 <div class="bar-label">Adm. Financeira</div>
-                <div class="bar bar-low" style="width: 30%;">3,00</div>
+                <div class="bar bar-low" style="width: 30%;">&nbsp;</div>
                 <div class="bar-value">3,00</div>
             </div>
             
             <div class="bar-container">
+                <div class="bar-backdrop"></div>
                 <div class="bar-label">Transparência</div>
-                <div class="bar bar-medium" style="width: 56%;">5,58</div>
+                <div class="bar bar-medium" style="width: 56%;">&nbsp;</div>
                 <div class="bar-value">5,58</div>
             </div>
             
             <div class="bar-container">
+                <div class="bar-backdrop"></div>
                 <div class="bar-label">Controle Interno</div>
-                <div class="bar bar-critical" style="width: 4%;">0,35</div>
+                <div class="bar bar-critical" style="width: 4%;">&nbsp;</div>
                 <div class="bar-value">0,35</div>
             </div>
         </div>
