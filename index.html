@@ -3,36 +3,369 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Indicadores Municipais</title>
-    <link rel="stylesheet" href="styles.css">
-<!-- React e ReactDOM -->
-<script src="https://unpkg.com/react@18.2.0/umd/react.production.min.js"></script>
-<script src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
-<!-- Babel para JSX -->
-<script src="https://unpkg.com/@babel/standalone@7.18.13/babel.min.js"></script>
-<!-- Recharts para gráficos -->
-<script src="https://unpkg.com/recharts@2.5.0/umd/Recharts.js"></script>
+    <title>Indicadores Municipais - Jaguapita</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f7fa;
+        }
+        
+        header {
+            background-color: #1e40af;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .iegm-card {
+            background-color: #eff6ff;
+            border: 1px solid #bfdbfe;
+        }
+        
+        .iegm-card .card-title {
+            color: #1e40af;
+        }
+        
+        .transparency-card {
+            background-color: #fffbeb;
+            border: 1px solid #fef08a;
+        }
+        
+        .transparency-card .card-title {
+            color: #854d0e;
+        }
+        
+        .progov-card {
+            background-color: #f5f3ff;
+            border: 1px solid #e9d5ff;
+        }
+        
+        .progov-card .card-title {
+            color: #6b21a8;
+        }
+        
+        .critical-card {
+            background-color: #fef2f2;
+            border: 1px solid #fecaca;
+        }
+        
+        .critical-card .card-title {
+            color: #991b1b;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .badge-green {
+            background-color: #dcfce7;
+            color: #166534;
+        }
+        
+        .badge-yellow {
+            background-color: #fef9c3;
+            color: #854d0e;
+        }
+        
+        .badge-red {
+            background-color: #fee2e2;
+            color: #991b1b;
+        }
+        
+        .badges-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .bar-container {
+            background-color: #e5e7eb;
+            height: 25px;
+            border-radius: 4px;
+            margin: 0.5rem 0;
+            position: relative;
+        }
+        
+        .bar {
+            height: 100%;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            position: relative;
+        }
+        
+        .bar-good {
+            background-color: #22c55e;
+        }
+        
+        .bar-medium {
+            background-color: #facc15;
+        }
+        
+        .bar-low {
+            background-color: #fb923c;
+        }
+        
+        .bar-critical {
+            background-color: #ef4444;
+        }
+        
+        .bar-label {
+            position: absolute;
+            left: 10px;
+            color: #333;
+            font-weight: bold;
+        }
+        
+        .bar-value {
+            position: absolute;
+            right: 10px;
+            color: #333;
+            font-weight: bold;
+        }
+        
+        .highlight-box {
+            background-color: #dcfce7;
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        
+        .highlight-value {
+            font-size: 2.25rem;
+            font-weight: bold;
+            color: #166534;
+            margin: 0.5rem 0;
+        }
+        
+        .critical-box {
+            background-color: white;
+            border: 1px solid #fee2e2;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .critical-box h3 {
+            color: #b91c1c;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .critical-value {
+            font-size: 2rem;
+            font-weight: bold;
+            text-align: center;
+            margin: 0.5rem 0;
+        }
+        
+        .critical-internal {
+            color: #dc2626;
+        }
+        
+        .critical-financial {
+            color: #ea580c;
+        }
+        
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background-color: #f0f5ff;
+            border-top: 1px solid #d1ddf5;
+            margin-top: 3rem;
+        }
+        
+        .download-btn {
+            display: inline-block;
+            background-color: #1e40af;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            text-decoration: none;
+            margin-top: 1rem;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        .download-btn:hover {
+            background-color: #1e3a8a;
+        }
+        
+        @media (max-width: 768px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
     <header>
-        <h1>Visualização de Indicadores Municipais</h1>
-        <p>Dashboard interativo para análise de indicadores de desempenho municipal</p>
+        <h1>Indicadores de Desempenho Municipal</h1>
+        <p>Dashboard simplificado para análise de indicadores</p>
     </header>
-
+    
     <div class="container">
-        <div id="root"></div>
-
-        <div class="report-link">
-            <h2>Baixar Relatório Completo</h2>
+        <div class="card iegm-card">
+            <h2 class="card-title">Índice de Efetividade da Gestão Municipal (IEGM)</h2>
+            
+            <div class="badges-container">
+                <span class="badge badge-yellow">Nota Geral: C+</span>
+                <span class="badge badge-green">Educação: B</span>
+                <span class="badge badge-yellow">Planejamento: C</span>
+                <span class="badge badge-green">Saúde: B</span>
+                <span class="badge badge-green">Fiscal: B</span>
+                <span class="badge badge-yellow">Ambiental: C</span>
+                <span class="badge badge-yellow">TI: C+</span>
+                <span class="badge badge-yellow">Cidades: C</span>
+            </div>
+            
+            <p>O município está <strong>efetivo</strong>, mas com espaço significativo para melhorias. Destacam-se positivamente as áreas de Educação, Saúde e Fiscal, todas com nota B (Muito efetiva).</p>
+            
+            <div class="bar-container">
+                <div class="bar-label">Nota Geral (C+)</div>
+                <div class="bar bar-medium" style="width: 50%;">2.5/5</div>
+            </div>
+            
+            <div class="bar-container">
+                <div class="bar-label">Educação (B)</div>
+                <div class="bar bar-good" style="width: 60%;">3/5</div>
+            </div>
+            
+            <div class="bar-container">
+                <div class="bar-label">Saúde (B)</div>
+                <div class="bar bar-good" style="width: 60%;">3/5</div>
+            </div>
+            
+            <div class="bar-container">
+                <div class="bar-label">Fiscal (B)</div>
+                <div class="bar bar-good" style="width: 60%;">3/5</div>
+            </div>
+        </div>
+        
+        <div class="card transparency-card">
+            <h2 class="card-title">Transparência (ITP 2024)</h2>
+            
+            <div class="highlight-box">
+                <h3>Nível</h3>
+                <div class="highlight-value">DIAMANTE</div>
+                <p>Nota: 100% - Ranking Estadual: 19º lugar</p>
+                <p>O município atingiu o mais alto nível de transparência, cumprindo 100% dos requisitos essenciais avaliados.</p>
+            </div>
+        </div>
+        
+        <div class="card progov-card">
+            <h2 class="card-title">Programa de Gestão e Avaliação (PROGOV)</h2>
+            
+            <div class="bar-container">
+                <div class="bar-label">Educação</div>
+                <div class="bar bar-medium" style="width: 63%;">6,31</div>
+                <div class="bar-value">6,31</div>
+            </div>
+            
+            <div class="bar-container">
+                <div class="bar-label">Saúde</div>
+                <div class="bar bar-medium" style="width: 64%;">6,35</div>
+                <div class="bar-value">6,35</div>
+            </div>
+            
+            <div class="bar-container">
+                <div class="bar-label">Assistência Social</div>
+                <div class="bar bar-medium" style="width: 67%;">6,71</div>
+                <div class="bar-value">6,71</div>
+            </div>
+            
+            <div class="bar-container">
+                <div class="bar-label">Adm. Financeira</div>
+                <div class="bar bar-low" style="width: 30%;">3,00</div>
+                <div class="bar-value">3,00</div>
+            </div>
+            
+            <div class="bar-container">
+                <div class="bar-label">Transparência</div>
+                <div class="bar bar-medium" style="width: 56%;">5,58</div>
+                <div class="bar-value">5,58</div>
+            </div>
+            
+            <div class="bar-container">
+                <div class="bar-label">Controle Interno</div>
+                <div class="bar bar-critical" style="width: 4%;">0,35</div>
+                <div class="bar-value">0,35</div>
+            </div>
+        </div>
+        
+        <div class="card critical-card">
+            <h2 class="card-title">Áreas que Exigem Atenção Imediata</h2>
+            
+            <div class="grid-2">
+                <div class="critical-box">
+                    <h3>Controle Interno</h3>
+                    <div class="critical-value critical-internal">0,35</div>
+                    <p>Situação crítica que demanda intervenção imediata. Recomenda-se estruturar equipe e procedimentos.</p>
+                </div>
+                
+                <div class="critical-box">
+                    <h3>Administração Financeira</h3>
+                    <div class="critical-value critical-financial">3,00</div>
+                    <p>Desempenho baixo que necessita de revisão dos processos de planejamento orçamentário.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h2 class="card-title">Relatório Completo</h2>
             <p>Para uma análise detalhada, baixe o relatório completo em formato PDF:</p>
-            <a href="relatorio-indicadores.pdf" download class="download-btn">Baixar Relatório PDF</a>
+            <a href="Caderno 1 - Indicadores Jaguapita.pdf" class="download-btn">Baixar Relatório PDF</a>
         </div>
     </div>
-
+    
     <footer>
         <p>© 2025 - Visualização de Indicadores Municipais</p>
     </footer>
-
-    <script type="text/babel" src="app.js"></script>
 </body>
 </html>
